@@ -1,0 +1,12 @@
+include README.md PROJECT_MANIFEST.md main.py .env.example
+include RELEASE_STATUS.md LICENSE THIRD_PARTY_NOTICES.md SECURITY.md
+recursive-include src/arona/prompts *.md
+include scripts/scan_secrets.py scripts/benchmark_memory.py
+include scripts/smoke_package.py
+include scripts/phase4_harness.py
+recursive-include deploy *.service
+recursive-include old*version *.md *.py
+include requirements.txt requirements.lock requirements-dev.lock
+recursive-include docs *.md
+recursive-include tests *.py
+recursive-include migrations *.sql *.md *.py

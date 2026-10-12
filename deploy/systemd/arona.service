@@ -1,0 +1,23 @@
+[Unit]
+Description=Arona 3.0 Core Brain
+After=local-fs.target
+
+[Service]
+Type=simple
+User=arona
+Group=arona
+WorkingDirectory=/opt/arona
+EnvironmentFile=-/etc/arona/arona.env
+ExecStart=/opt/arona/.venv/bin/arona serve
+Restart=on-failure
+RestartSec=5
+KillSignal=SIGTERM
+TimeoutStopSec=420
+NoNewPrivileges=true
+PrivateTmp=true
+# Private defaults for new runtime files; no privileged operations are needed.
+UMask=0077
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target
