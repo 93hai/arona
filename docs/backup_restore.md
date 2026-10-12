@@ -2,7 +2,7 @@
 
 Database maintenance là công việc của local operator, không phải autonomous tool. Runtime DB, backup directory và source phải tách biệt. Trên Linux, dùng directory private `0700` và file `0600`. Operator nên sao chép backup off-host; một disk đơn không phải disaster recovery.
 
-Ví dụ PowerShell cho workspace thử mới ở [hướng dẫn tiếng Việt](../README.vi.md#thử-vận-hành-không-cần-api-key). Các lệnh bên dưới là CLI đã có, không khởi động provider hoặc service.
+Ví dụ PowerShell cho workspace thử mới ở [hướng dẫn tiếng Việt](../README-vi.md#thử-vận-hành-không-cần-api-key). Các lệnh bên dưới là CLI đã có, không khởi động provider hoặc service.
 
 ## Backup
 

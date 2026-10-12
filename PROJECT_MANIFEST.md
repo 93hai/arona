@@ -4,7 +4,7 @@
 
 | Đường dẫn | Nội dung |
 | --- | --- |
-| `README.md`, `README.vi.md` | Giới thiệu ngắn và hướng dẫn chi tiết bằng tiếng Việt |
+| `README.md`, `README-vi.md` | Giới thiệu ngắn bằng tiếng Anh và hướng dẫn chi tiết bằng tiếng Việt |
 | `src/arona/` | Settings, Core/Models, Memory, Policy/Dispatcher, Audit, Candidate và maintenance CLI |
 | `src/arona/prompts/` | Runtime prompt contracts; không phải tài liệu giới thiệu để dịch hoặc sửa tùy ý |
 | `migrations/` | Lịch sử SQL và tài liệu migration; SQL được giữ nguyên |

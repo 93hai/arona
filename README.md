@@ -1,31 +1,31 @@
 # Arona
 
-**Nền tảng lõi cho một trợ lý AI có bộ nhớ và kiểm soát quyền.**
+**An experimental AI assistant core with memory and permission controls.**
 
-[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB)](README.vi.md#cài-đặt-trên-windows)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB)](#quick-start-on-windows)
 [![MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE)
 [![Experimental](https://img.shields.io/badge/Status-Experimental-d97706)](RELEASE_STATUS.md)
 
-**3.0.0a1 — Experimental Core** · Source đã công khai · **PRODUCTION: NOT READY**
+**3.0.0a1 — Experimental Core** · Public source · **PRODUCTION: NOT READY**
 
-[Giới thiệu ngắn](README.md) · [Hướng dẫn tiếng Việt](README.vi.md) · [Trạng thái và kiểm thử](RELEASE_STATUS.md)
+[English](README.md) · [Tiếng Việt](README-vi.md)
 
-## Arona là gì?
+## What is Arona?
 
-Arona xây phần “lõi” của một trợ lý: tiếp nhận yêu cầu từ mã tích hợp, tìm thông tin được phép nhớ, điều phối mô hình và kiểm tra quyền trước khi gọi công cụ. Bản 3.0 dành cho người muốn đọc, học hoặc phát triển phần lõi này; chưa phải ứng dụng chatbot có thể mở lên và trò chuyện ngay.
+Arona builds the core of an AI assistant: accepting requests from trusted integration code, retrieving permitted memories, coordinating models, and checking permissions before calling tools. Version 3.0 is for developers and learners who want to explore or extend that core. It does not yet provide a ready-to-use chatbot application.
 
-## Bản 3.0 hiện có gì?
+## What can version 3.0 do?
 
-- **Core:** điều phối xử lý yêu cầu và vòng đời ứng dụng.
-- **Memory:** lưu dữ liệu theo người dùng và workspace bằng SQLite, có tìm kiếm FTS5.
-- **Model Gateway:** adapter Gemini/Mistral/Codestral, fallback và giới hạn ngân sách; live provider chưa được nghiệm thu.
-- **Policy, Dispatcher và Audit:** kiểm tra quyền, gọi công cụ đã đăng ký và ghi nhận kết quả.
-- **Vận hành:** kiểm tra cấu hình, migration, backup và restore qua CLI.
-- **Candidate:** đọc/ghi tệp đề xuất trong vùng riêng, có kiểm soát đường dẫn; không chạy code.
+- **Core:** coordinate request processing and application lifecycle.
+- **Memory:** store data by user and workspace in SQLite, with FTS5 search.
+- **Model Gateway:** Gemini/Mistral/Codestral adapters, fallback and budget limits; live providers have not passed acceptance validation.
+- **Policy, Dispatcher and Audit:** check permissions, call registered tools and record outcomes.
+- **Maintenance:** configuration checks, migrations, backup and restore through the CLI.
+- **Candidate:** read and write proposed files in a separate workspace with path controls; it does not execute code.
 
-## Bắt đầu trên Windows
+## Quick Start on Windows
 
-Cần Git, Python **3.11+** và SQLite có FTS5. Lượt cài sạch Windows gần đây được kiểm chứng trên **Python 3.14.6**; không phải xác nhận cho mọi phiên bản Python. Chạy trong PowerShell, không cần kích hoạt venv hoặc quyền Administrator:
+You need Git, Python **3.11+**, and SQLite with FTS5. The recent clean Windows installation was validated specifically on **Python 3.14.6**; this does not establish compatibility with every Python version. Run these commands in PowerShell. Virtual environment activation and Administrator privileges are not required:
 
 ```powershell
 git clone https://github.com/93hai/arona.git
@@ -39,13 +39,13 @@ $AronaPython = Join-Path (Get-Location) '.venv\Scripts\python.exe'
 & .\.venv\Scripts\arona.exe --help
 ```
 
-Đoạn này chỉ cài đặt và kiểm tra CLI, chưa bật provider hoặc tạo chatbot. Xem [cách thử maintenance không cần API key](README.vi.md#thử-vận-hành-không-cần-api-key) để tạo dữ liệu thử **ngoài source**. CLI không có `--version`; dùng lệnh Python ở trên.
+These commands install Arona and check its CLI; they do not start a provider or a chatbot. The [Vietnamese guide](README-vi.md#thử-vận-hành-không-cần-api-key) shows how to try maintenance without API keys using disposable data **outside the source tree**. The CLI has no `--version` option; use the Python command above.
 
-## Kiến trúc thu gọn
+## Architecture at a glance
 
 ```mermaid
 flowchart LR
-    I["Mã tích hợp tin cậy"] --> C["Core"]
+    I["Trusted integration code"] --> C["Core"]
     C <--> M["Memory / SQLite"]
     C <--> G["Model Gateway"]
     C --> P["Policy"]
@@ -53,33 +53,35 @@ flowchart LR
     D --> A["Audit"]
 ```
 
-Đây là luồng xử lý trong lõi, không phải một API mạng có sẵn. Chi tiết ở [tài liệu kiến trúc](docs/ARCHITECTURE.md).
+This diagram describes internal processing, not an available network API. See the [architecture documentation](docs/ARCHITECTURE.md) for details.
 
-## Giới hạn hiện tại
+## Current limitations
 
-Chưa có chat UI, public API, WebSocket, Discord runtime transport, voice, AIRI integration hoặc Safe Runner. Arona 3.0 cũng không có Web Search, tự thực thi Candidate, Self-Correction, Scheduler hay Plugin platform. Thư mục `old version/` chỉ phục vụ kiểm thử, không phải bot được hỗ trợ.
+Arona 3.0 has no chat UI, public API, WebSocket, Discord runtime transport, voice, AIRI integration or Safe Runner. It also has no Web Search, automatic Candidate execution, Self-Correction, Scheduler or Plugin platform. The `old version/` directory is retained for regression tests; it is not a supported bot.
 
-Live provider, soak dài và power-loss thật chưa được nghiệm thu. Conversation history ở RAM; Memory và ngân sách có lưu bền vững. Xem [giới hạn và bằng chứng kiểm thử](RELEASE_STATUS.md) trước khi tích hợp hoặc triển khai.
+Live-provider acceptance, extended soak testing and real power-loss recovery remain unverified. Conversation history is held in RAM; Memory and budgets persist across restarts. Read the [release status and validation evidence](RELEASE_STATUS.md) before integrating or deploying Arona.
 
-## Tài liệu
+## Documentation
 
-| Bạn muốn… | Đọc tại |
+Detailed documentation is currently in Vietnamese.
+
+| To… | Read |
 | --- | --- |
-| Hiểu dự án và thử trên Windows | [README.vi.md](README.vi.md) |
-| Xem trạng thái, số liệu và giới hạn kiểm thử | [RELEASE_STATUS.md](RELEASE_STATUS.md) |
-| Đọc kiến trúc và các ranh giới quyền | [Kiến trúc](docs/ARCHITECTURE.md) · [Bảo mật](docs/SECURITY.md) |
-| Quản lý dữ liệu | [Backup/restore](docs/backup_restore.md) · [Migration](migrations/README.md) |
-| Chuẩn bị kiểm chứng Linux | [Checklist Linux](docs/linux_validation_checklist.md) |
-| Xem phạm vi source công khai | [Project manifest](PROJECT_MANIFEST.md) · [Public snapshot](docs/public_snapshot.md) |
+| Understand the project and try it on Windows | [Vietnamese guide](README-vi.md) |
+| Review status, test counts and validation limits | [Release status](RELEASE_STATUS.md) |
+| Understand architecture and permission boundaries | [Architecture](docs/ARCHITECTURE.md) · [Security design](docs/SECURITY.md) |
+| Manage data | [Backup/restore](docs/backup_restore.md) · [Migrations](migrations/README.md) |
+| Prepare Linux validation | [Linux checklist](docs/linux_validation_checklist.md) |
+| Review the public source scope | [Project manifest](PROJECT_MANIFEST.md) · [Public snapshot](docs/public_snapshot.md) |
 
-## Đóng góp
+## Contributing
 
-[Mở issue](https://github.com/93hai/arona/issues) cho câu hỏi hoặc lỗi không nhạy cảm. Khi gửi pull request, mô tả thay đổi và cách kiểm tra; giữ các ranh giới quyền và phạm vi 3.0. [Hướng dẫn đóng góp](README.vi.md#đóng-góp) có các lệnh dành cho người phát triển. Không gửi key, database, log riêng hoặc dữ liệu người dùng trong issue/PR.
+[Open an issue](https://github.com/93hai/arona/issues) for questions or nonsensitive bugs. For pull requests, describe your changes and how you checked them, preserving the permission boundaries and version 3.0 scope. Developer commands are in the [Vietnamese contribution guide](README-vi.md#đóng-góp). Do not include credentials, databases, private logs or user data in issues or pull requests.
 
-## Nguồn gốc, quyền sử dụng và bảo mật
+## Origin, license and security
 
-Dự án gốc và định hướng do **[93hai](https://github.com/93hai)** tạo; phần triển khai được hỗ trợ đáng kể bởi AI dưới sự hướng dẫn của con người. Arona 3.0 độc lập với AIRI và không chứa foundation hoặc asset AIRI được xác định trong lượt review.
+**[93hai](https://github.com/93hai)** created the original project concept and direction. Implementation was extensively AI-assisted under human direction. Arona 3.0 is independent of AIRI; the provenance review identified no AIRI-derived foundation or assets in this version.
 
-[MIT License](LICENSE) — Copyright **2026 93hai**. Dependency giữ giấy phép riêng trong [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); AI assistance không tự chứng minh mọi quyền bên thứ ba đã được xử lý.
+[MIT License](LICENSE) — Copyright **2026 93hai**. Dependencies retain their own licenses in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). AI assistance does not establish that all third-party rights have been cleared.
 
-Xem [SECURITY.md](SECURITY.md) để báo lỗi nhạy cảm và hiểu rủi ro credential lịch sử. Việc xóa key/application cũ là **owner-reported**, chưa **provider-confirmed**; source sạch không chứng minh trạng thái tài khoản provider.
+See [SECURITY.md](SECURITY.md) for sensitive vulnerability reporting and historical credential risks. Deletion of old keys and applications is **owner-reported**, not independently **provider-confirmed**. A clean public source snapshot does not establish the security state of provider accounts.
