@@ -2,6 +2,8 @@
 
 Database maintenance là công việc của local operator, không phải autonomous tool. Runtime DB, backup directory và source phải tách biệt. Trên Linux, dùng directory private `0700` và file `0600`. Operator nên sao chép backup off-host; một disk đơn không phải disaster recovery.
 
+Ví dụ PowerShell cho workspace thử mới ở [hướng dẫn tiếng Việt](../README.vi.md#thử-vận-hành-không-cần-api-key). Các lệnh bên dưới là CLI đã có, không khởi động provider hoặc service.
+
 ## Backup
 
 Chạy `arona backup --operator-id operator-name` (development có thể đặt `--env-file .env` trước command). SQLite backup API tạo snapshot nhất quán, bao gồm WAL data đã commit; không copy raw live file. Connection đóng tường minh. Integrity và Arona schema được nhận diện được kiểm tra trước publish. Thời gian snapshot giới hạn 30 giây.

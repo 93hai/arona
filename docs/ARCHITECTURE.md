@@ -2,7 +2,9 @@
 
 ## Trạng thái implementation
 
-Arona 3.0 đã triển khai Foundation/Database, Memory Engine, Policy/Tools/Audit/Candidate security và Core/Models/Lifecycle. Trạng thái validation nằm trong [RELEASE_STATUS.md](../RELEASE_STATUS.md). Baseline có native Linux/systemd offline validation; đây không phải Production Ready: live provider, soak dài, power-loss và các điều kiện phát hành vẫn chưa hoàn tất.
+Arona 3.0 (`3.0.0a1 — Experimental Core`) đã công bố source và triển khai Foundation/Database, Memory Engine, Policy/Tools/Audit/Candidate security và Core/Models/Lifecycle. Trạng thái validation nằm trong [RELEASE_STATUS.md](../RELEASE_STATUS.md). Native Linux/systemd offline là bằng chứng baseline lịch sử, không phải nghiệm thu mới của public snapshot. **PRODUCTION: NOT READY**: live provider, soak dài và hardware power-loss vẫn chưa hoàn tất.
+
+Các gateway/luồng bên dưới là contract cho code tích hợp tin cậy; chưa có chat UI, public API, WebSocket hoặc Discord runtime transport. Voice, AIRI integration và Safe Runner không thuộc Arona 3.0. Tài liệu này không tạo thêm capability hoặc dịch vụ mạng.
 
 SQLite connection chuẩn là `src/arona/memory/db.py`; `src/arona/database/connection.py` là import compatibility shim. `src/arona/database/migrations.py` đọc SQL history bất biến từ `migrations/versions/` ở root. Không tạo placeholder cho capability tương lai.
 

@@ -1,6 +1,6 @@
 # SQLite migration history — Phase 1
 
-The public scope is Arona 3.0; see ../docs/ARCHITECTURE.md. Internal future-version planning documents are not shipped.
+The public scope is Arona 3.0; see [architecture](../docs/ARCHITECTURE.md). Internal future-version planning documents are not shipped.
 SQL is packaged with the wheel; no runtime dependency on the checkout location.
 
 | Version | Purpose | Conditions / validation | Backup / failure |

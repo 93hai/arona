@@ -2,12 +2,12 @@
 
 Trạng thái: các kiểm soát Foundation, Memory, Policy/Tools/Audit/Candidate và Core/Models đã được triển khai trong phạm vi Arona 3.0. Kết quả baseline và giới hạn ở [RELEASE_STATUS.md](../RELEASE_STATUS.md), không phải chứng nhận Production Ready.
 
-Staging chỉ dùng Git cục bộ mới, không mang history gốc. Credential-like findings trong private history cần owner phân loại và revoke/rotate nếu là credential thật; không suy đoán đã xử lý. MIT/attribution đã được chuẩn bị, quyền cấp phép toàn bộ source vẫn cần xác nhận. Heuristic scan không chứng minh không còn secret hoặc lỗ hổng. Xem [phạm vi public snapshot](public_snapshot.md) và [security/contact](../SECURITY.md).
+Source đã công bố tại [93hai/arona](https://github.com/93hai/arona), chỉ dùng Git history mới, không mang history private gốc. MIT/attribution đã được owner phê duyệt; không tìm thấy conflict cụ thể, không phải chứng nhận pháp lý độc lập. Owner báo key/application cũ đã xóa, nhưng mức bằng chứng vẫn owner-reported, chưa provider-confirmed. Heuristic scan không chứng minh không còn mọi loại secret hoặc lỗ hổng. Xem [phạm vi public snapshot](public_snapshot.md) và [security/contact](../SECURITY.md).
 
 ## Mối đe dọa
 
 ### Bên ngoài
-- Prompt injection, Discord input độc hại, path traversal, symlink/junction.
+- Prompt injection, input độc hại từ mã tích hợp, path traversal, symlink/junction. Arona 3.0 chưa có Discord runtime transport.
 - Rò rỉ secret, trộn Memory giữa người dùng, model output không hợp lệ.
 - Provider timeout và tool privilege escalation.
 
@@ -28,7 +28,7 @@ Staging chỉ dùng Git cục bộ mới, không mang history gốc. Credential-
 | P5 | Quyền hệ thống, cần confirmation và whitelist | Tắt |
 
 ## Quản lý secret
-- Chỉ đọc từ environment variable.
+- Production chỉ đọc process environment; development cho phép `--env-file` tường minh. Không tự động tải `.env`.
 - Không hard-code trong source, không đưa vào prompt.
 - Không log, audit hoặc lưu vào Memory/Candidate.
 - Adapter provider không đưa API key vào lỗi; key dùng header phù hợp provider.

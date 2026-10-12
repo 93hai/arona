@@ -1,14 +1,16 @@
 # Checklist kiểm chứng Linux
 
 Đây là checklist để operator tái nghiệm thu môi trường triển khai. Baseline đã có
-native Debian 12 validation theo [RELEASE_STATUS.md](../RELEASE_STATUS.md).
+native Debian 12 validation lịch sử theo [RELEASE_STATUS.md](../RELEASE_STATUS.md),
+không phải lượt nghiệm thu mới cho published snapshot. Source đã public;
+**PRODUCTION: NOT READY**.
 Các ô trống bên dưới dành cho lần triển khai của operator, không phủ nhận kết quả
 baseline. Live provider, soak dài, crash giữa request và power-loss vẫn là gate
 chưa hoàn tất; SIGKILL process idle không thay thế chúng.
 
 - [ ] Chạy full pytest và Ruff với Python 3.11+ và SQLite FTS5.
 - [ ] Tạo artifact mới từ source hiện tại rồi kiểm tra wheel/sdist; không dùng artifact cũ.
-- [ ] Chạy `arona --env-file ... migrate` bằng non-root service user.
+- [ ] Chạy `arona migrate --operator-id operator-name` bằng non-root service user với process environment đã cấu hình. Production cấm `--env-file`; chỉ development được dùng dotenv tường minh. `EnvironmentFile` của systemd cung cấp process environment, không phải lệnh dotenv của Arona.
 - [ ] Xác nhận configured data, database, backup, Candidate, state và log directory tách biệt, private và chỉ service user có quyền ghi.
 - [ ] Cài `deploy/systemd/arona.service`; kiểm tra `User=arona`, `WorkingDirectory=/opt/arona`, external `EnvironmentFile`, `Restart=on-failure` và `KillSignal=SIGTERM`.
 - [ ] Chạy `systemd-analyze verify` với installed unit, không đặt secret trong repository hoặc unit file.

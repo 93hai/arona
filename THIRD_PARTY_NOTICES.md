@@ -1,6 +1,6 @@
 # Third-party notices
 
-The proposed MIT license in LICENSE covers project-authored Arona code only, subject to the maintainer having the right to grant it. It does not relicense dependencies or prove that all source provenance has been cleared.
+The MIT license in LICENSE is the project's published license, approved by the maintainer with public attribution 2026 93hai. It covers project-authored Arona code only where the maintainer has the right to grant it. It does not relicense dependencies or independently certify all source provenance. The canonical project LICENSE and the verbatim upstream license texts below remain in English; browser translations do not replace them.
 
 The runtime dependencies below are installed separately by pip; their code and binary wheels are not vendored in this source repository or Arona wheel. The notices below are reproduced verbatim from the locked dependency distributions inspected for this candidate. Preserve upstream notices when redistributing those dependencies. Python and SQLite are supplied by the Python installation and retain their own licenses.
 
@@ -18,7 +18,7 @@ The runtime dependencies below are installed separately by pip; their code and b
 
 pytest, Ruff, build and their development dependencies are development tools installed separately, not code shipped inside the Arona runtime wheel. Consult their installed distribution license files if redistributing those tools. The historical Discord reference file imports discord.py, psutil, requests and google-genai; those libraries are not bundled or installed by Arona 3.0. That file is retained only for an unchanged AST security regression and must not be executed as part of Arona 3.0.
 
-No vendored third-party source, binary, image, font, audio or AIRI asset was identified in the reviewed source snapshot. Absence of a detected attribution marker is not proof of original authorship. The maintainer must confirm provenance and any contributor or copied-code permissions before publication.
+No vendored third-party source, binary, image, font, audio or AIRI asset was identified in the reviewed source snapshot, and no concrete rights conflict was identified. The maintainer authorized the MIT publication. Absence of a detected attribution marker or AI-assisted implementation is not proof that every possible third-party right has been independently cleared. Preserve any applicable contributor or copied-code notices when adding new material.
 
 ## annotated-types 0.8.0 — upstream license text
 

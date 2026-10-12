@@ -1,11 +1,19 @@
-# Public staging snapshot scope
+# Phạm vi source công khai
 
-This experimental Arona 3.0 staging derives from the validated clean candidate. Runtime source, SQL migrations, prompt resources, dependency locks and tests are preserved byte-for-byte. Only public documentation, ignore/packaging metadata and license/notice files are updated. No feature is added.
+Source **Arona 3.0 — 3.0.0a1 Experimental Core** đã được công bố tại [93hai/arona](https://github.com/93hai/arona). History public bắt đầu từ một commit gốc mới của snapshot 106 tệp đã review; không copy Git history private gốc. Các commit tài liệu tiếp theo không đồng nghĩa có phiên bản hoặc capability runtime mới.
 
-A reviewed file allowlist is used to copy files and stage a fresh local Git repository. Original Git history, remotes, private keys, actual env files, databases, personal data, logs, caches, build output, internal planning documents and test evidence archives are excluded. The internal 3.0–4.0 planning document is not shipped; future ideas are not implemented capabilities.
+## Những gì được giữ và loại trừ
 
-`.env.example` contains empty provider-key templates. Credential markers and fake Windows paths in tests are synthetic fixtures, not personal credentials or paths. One historical Discord file remains only because an unchanged security regression inspects its AST to assert an empty credential default. It is not imported, executed or installed as Arona runtime.
+Runtime source, SQL migrations, prompt resources, dependency locks và tests được giữ từ candidate đã kiểm chứng. Tài liệu public có thể được cập nhật để khớp trạng thái hiện tại. Các runtime prompt dưới `src/arona/prompts/` là contract ứng dụng đọc, không phải nội dung giới thiệu để dịch.
 
-The public identity is 93hai. The proposed MIT grant applies only where the maintainer has the right to license the source. Third-party permissions and prior genuine-credential revocation must be confirmed before publication; see [status](../RELEASE_STATUS.md). Neither AI assistance nor absence of a copied-code marker proves all rights are cleared.
+Không đưa private keys, `.env` thật, database, dữ liệu người dùng, log, backup, cache, build output, kế hoạch nội bộ hoặc test evidence archives vào public repository. Wheel/sdist và source archive không chứa `.git`. Một checkout Git có public commit history mới; khác với source archive không có Git metadata.
 
-The local repository has no original commits or remote. It is prepared for review, not published. External audit logs, hash manifests, allowlist and release artifacts are handed to the owner separately and do not belong in this public source tree. Git-aware regression requires tracked files; it is retained unchanged.
+`.env.example` chứa template key trống. Credential markers và Windows paths giả trong tests là fixture tổng hợp để kiểm tra redaction/path traversal, không phải dữ liệu cá nhân. Một legacy Discord file được giữ chỉ vì security regression đọc AST để xác nhận default credential rỗng; nó không được import, chạy hoặc cài như runtime Arona 3.0.
+
+## License và mức bằng chứng
+
+Maintainer/public identity là **93hai**; MIT, copyright **2026 93hai**, đã được owner phê duyệt. Dependency vẫn giữ giấy phép riêng. Không tìm thấy xung đột quyền cụ thể trong lượt review, nhưng AI assistance hay việc không có copied-code marker không chứng minh mọi quyền đã được chứng nhận pháp lý độc lập.
+
+Owner báo credential/application cũ đã được xử lý; đó là **owner-reported**, chưa **provider-confirmed**. Rủi ro tài khoản lịch sử được phân biệt với độ sạch của source public. **PRODUCTION: NOT READY**; xem [RELEASE_STATUS.md](../RELEASE_STATUS.md) và [SECURITY.md](../SECURITY.md).
+
+Các report riêng, manifest/hash audit và artifact kiểm chứng được giữ ngoài repository. Git-aware regression cần tracked files trong Git checkout và không được sửa/skip để lấy PASS.
